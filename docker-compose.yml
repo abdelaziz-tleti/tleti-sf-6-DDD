@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+###> doctrine/doctrine-bundle ###
+  database:
+    image: postgres:${POSTGRES_VERSION:-15}-alpine
+    container_name: database
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-app}
+      # You should definitely change the password in production
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
+      POSTGRES_USER: ${POSTGRES_USER:-app}
+    volumes:
+      - database_data:/var/lib/postgresql/data:rw
+    networks:
+      - symfony
+      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+      # - ./docker/db/data:/var/lib/postgresql/data:rw
+###< doctrine/doctrine-bundle ###
+  web:
+    image: nginx:latest
+    container_name: web
+    ports:
+      - "8000:80"
+    volumes:
+      - ./site.conf:/etc/nginx/conf.d/default.conf
+      - ./:/var/www
+    links:
+      - php
+    networks:
+      - symfony
+
+  php:
+    build: .docker
+    container_name: php
+    depends_on:
+      - database
+    volumes:
+      - .:/var/www
+    networks:
+      - symfony
+
+
+
+volumes:
+
+###> doctrine/doctrine-bundle ###
+  database_data:
+###< doctrine/doctrine-bundle ###
+networks:
+  symfony:
