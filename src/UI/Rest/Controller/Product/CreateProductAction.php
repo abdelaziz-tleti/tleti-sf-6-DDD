@@ -24,7 +24,6 @@ class CreateProductAction extends AbstractController
         response: 201,
         description: 'Created'
     )]
-    #[OA\RequestBody(content: new OA\JsonContent(ref: "#/components/schemas/Product"))]
     #[OA\Tag(name: 'Product')]
     public function __invoke(): JsonResponse
     {
