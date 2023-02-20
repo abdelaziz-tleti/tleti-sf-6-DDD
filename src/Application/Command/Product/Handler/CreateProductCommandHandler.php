@@ -11,6 +11,7 @@ class CreateProductCommandHandler
 {
     public function __construct(
         private readonly CreateProductFactory $createProductFactory,
+        private readonly ProductRepositoryInterface $productRepository
     ) {
     }
 
@@ -20,6 +21,7 @@ class CreateProductCommandHandler
             $createProductRequest->getName(),
             $createProductRequest->getImage()
         );
+        $this->productRepository->save($product);
 
         return $product;
     }
