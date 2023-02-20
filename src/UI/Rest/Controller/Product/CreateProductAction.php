@@ -2,7 +2,7 @@
 
 namespace App\UI\Rest\Controller\Product;
 
-use App\Application\Command\Product\CreateProductCommandHandler;
+use App\Application\Command\Product\Handler\CreateProductCommandHandler;
 use App\Application\Command\Product\Request\CreateProductRequest as RequestCreateProduct;
 use App\Infrastructure\ParamConverter\CreateProductConverter;
 use App\UI\Rest\DTO\CreateProductDTO;
