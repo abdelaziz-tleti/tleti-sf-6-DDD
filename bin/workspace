@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+RED="\e[31m"
+GREEN="\e[32m"
+YELLOW="\e[33m"
+BLUE="\e[94m"
+ENDCOLOR="\e[0m"
+
+start ()
+{
+   docker-compose up -d
+}
+
+stop ()
+{
+   docker-compose stop
+}
+
+console ()
+{
+  declare ARGS=$@
+  docker-compose exec php bin/console $ARGS
+}
+
+init ()
+{
+   docker-compose exec php `php composer.phar install`
+   start
+   docker-compose exec php bin/console doctrine:migrations:migrate
+}
+
+tests ()
+{
+   docker-compose exec php vendor/bin/phpunit --coverage-html public/test-coverage
+}
+
+migrate ()
+{
+   docker-compose exec php bin/console doctrine:migrations:migrate --env=dev
+}
+
+usage ()
+{
+echo -e "
+Usage: ${BLUE} bin/console COMMAND ${ENDCOLOR}
+${BLUE}init${ENDCOLOR}               Init project ${RED}create database${ENDCOLOR}
+${BLUE}start${ENDCOLOR}              Run a container
+${BLUE}stop${ENDCOLOR}               Stop a container
+${BLUE}console${ENDCOLOR}            Symfony console
+${BLUE}tests${ENDCOLOR}              execute tests
+${BLUE}migrate${ENDCOLOR}            doctrine:migrations:migrate
+"
+
+}
+
+
+main ()
+{
+declare CMD=$1
+
+    if [ -z $1 ]; then
+        usage
+        exit 0
+    fi
+
+    $@
+
+}
+
+main $@
