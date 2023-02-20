@@ -1,5 +1,6 @@
-App\Entity\Product:
+App\Domain\Entity\Product:
     type: entity
+    repositoryClass: App\Infrastructure\Repository\ProductRepository
     table: product
     id:
         id:
@@ -13,14 +14,14 @@ App\Entity\Product:
     fields:
         name:
             type: string
-            nullable: true
+            nullable: false
             length: 255
             options:
                 fixed: false
         image:
             type: string
-            nullable: false
-            length: 255
+            nullable: true
+            length: 500
             options:
                 fixed: false
     lifecycleCallbacks: {  }

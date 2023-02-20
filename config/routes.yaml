@@ -1,6 +1,17 @@
-controllers:
+#controllers:
+#    resource:
+#        path: ../src/Controller/
+#        namespace: App\Controller
+#    type: attribute
+
+#infrastucture_controllers:
+#    resource:
+#        path: ../src/Infrastructure/Controller/
+#        namespace: App\Infrastructure\Controller
+#    type: attribute
+
+ui_store:
     resource:
         path: ../src/UI/Rest/Controller/
         namespace: App\UI\Rest\Controller
     type: attribute
-
