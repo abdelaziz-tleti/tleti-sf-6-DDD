@@ -31,6 +31,6 @@ class CreateProductAction extends AbstractController
     {
         $product = $this->handler->handle($requestCreateProduct);
 
-        return new JsonResponse($product, Response::HTTP_CREATED);
+        return new JsonResponse(CreateProductDTO::fromProduct($product), Response::HTTP_CREATED);
     }
 }
