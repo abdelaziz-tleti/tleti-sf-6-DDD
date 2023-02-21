@@ -1,5 +1,5 @@
 # The Application 
-It is a small application that allows adding products to the database. 
+It is an API application that allows to create products. 
 The application enables applying the hexagonal architecture approach ( Domain Driven Design DDD ).
 
 ```sh
